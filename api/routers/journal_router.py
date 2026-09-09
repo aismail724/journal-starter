@@ -110,6 +110,13 @@ async def delete_entry(entry_id: str, entry_service: EntryServiceDependency) -> 
     return DetailResponse(detail="Entry deleted successfully")
 
 
+@router.delete("/entries")
+async def delete_all_entries(entry_service: EntryServiceDependency) -> DetailResponse:
+    """Delete all journal entries"""
+    await entry_service.delete_all_entries()
+    return DetailResponse(detail="All entries deleted")
+
+
 @router.post("/entries/{entry_id}/analyze", response_model=AnalysisResponse)
 async def analyze_entry(entry_id: str, entry_service: EntryServiceDependency) -> AnalysisResponse:
     """
